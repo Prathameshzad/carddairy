@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import Image from 'next/image';
 import Button from './ui/Button';
 
 // List of predefined moods with styling and image info
@@ -103,7 +104,12 @@ const MoodReflection: React.FC = () => {
                 className={`w-10 h-10 rounded-full overflow-hidden flex items-center justify-center ${savedMoods[day] ? '' : 'bg-gray-100'}`}
               >
                 {savedMoods[day] && (
-                  <img src={savedMoods[day]} alt={`${day} mood`} className="w-full h-full" />
+                  <Image
+                  src={savedMoods[day]}
+                  alt={`${day} mood`}
+                  width={40}
+                  height={40}
+                />
                 )}
               </div>
               <span className="text-sm mt-1">{day}</span>
@@ -117,14 +123,14 @@ const MoodReflection: React.FC = () => {
         {/* Top mood in center */}
         <div className={`absolute -top-24 left-1/2 transform -translate-x-1/2 ${topMood.color} flex flex-col items-center`}>
           <div className={`${topMood.bgColor} p-4 rounded-full`}>
-            <img src={topMood.image} alt={topMood.label} className="w-10 h-10 rounded-md" />
+          <Image src={topMood.image} alt={topMood.label} width={40} height={40} className="rounded-md" />
           </div>
         </div>
 
         {/* Other moods around the center */}
         {moods.map((mood, index) => {
           if (index === topMoodIndex) return null;
-          let positionIdx = index > topMoodIndex ? index - 1 : index;
+          const  positionIdx = index > topMoodIndex ? index - 1 : index;
 
           return (
             <button
@@ -133,7 +139,7 @@ const MoodReflection: React.FC = () => {
               className={`${moodPositions[positionIdx]} flex flex-col items-center hover:scale-110 transition-transform cursor-pointer`}
             >
               <div className={`${mood.bgColor} p-4 rounded-full`}>
-                <img src={mood.image} alt={mood.label} className="w-8 h-8 rounded-md" />
+               <Image src={mood.image} alt={mood.label} width={32} height={32} className="rounded-md" />
               </div>
             </button>
           );

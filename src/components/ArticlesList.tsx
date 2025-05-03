@@ -6,25 +6,25 @@ interface Article {
   url: string;
 }
 
+interface NewsApiResponse {
+  articles: Article[];
+}
+
 // Function to fetch articles from the News API
 async function fetchArticles(): Promise<Article[]> {
   try {
-    const apiKey = process.env.NEWS_API_KEY; // Ensure this is set in your environment
-
+    const apiKey = process.env.NEWS_API_KEY;
     const response = await fetch(
       `https://newsapi.org/v2/everything?q=health&pageSize=5&apiKey=${apiKey}`
     );
-    const data = await response.json();
 
-    // Extract only necessary fields from each article
-    return data.articles.map((article: any) => ({
-      title: article.title,
-      description: article.description,
-      url: article.url,
-    }));
+    const data: NewsApiResponse = await response.json();
+
+    // Return the article list directly since it matches our interface
+    return data.articles;
   } catch (error) {
     console.error('Failed to fetch articles:', error);
-    return []; // Return empty array on failure
+    return [];
   }
 }
 
@@ -37,7 +37,7 @@ const getCachedArticles = unstable_cache(
 
 // Server component to display the list of articles
 export default async function ArticlesList() {
-  const articles = await getCachedArticles(); // Get cached (or fresh) articles
+  const articles = await getCachedArticles();
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
