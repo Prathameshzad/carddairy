@@ -45,12 +45,7 @@ const Navbar = () => {
           className="flex items-center gap-2 cursor-pointer" 
           onClick={() => navigateTo('/')}
         >
-          {/* Dots as logo graphic */}
-          <div className="relative w-8 h-8">
-            <div className="absolute w-3 h-3 rounded-full bg-blue-400 top-0 left-0" />
-            <div className="absolute w-3 h-3 rounded-full bg-purple-400 top-1 left-2" />
-            <div className="absolute w-3 h-3 rounded-full bg-indigo-400 top-2 left-1" />
-          </div>
+
           <span className="text-lg font-semibold text-gray-800">Care Dairy</span>
         </div>
 
